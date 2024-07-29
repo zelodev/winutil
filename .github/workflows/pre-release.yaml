@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Compile & Run winutil.ps1
-        uses: ./.github/workflows/compile-check.yaml
+        uses: Marterich/winutil/.github/workflows/compile-check.yaml@main
 
       - name: Extract Version from winutil.ps1
         id: extract_version
