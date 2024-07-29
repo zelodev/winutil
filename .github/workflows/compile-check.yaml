@@ -9,27 +9,26 @@ on:
   workflow_call: # Allow other Actions to call this workflow 
   
 jobs:
-  Checkout:
+  Compile-and-Check:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.head_ref }}
-  Compile:
-    needs: Checkout
-    runs-on: windows-latest
-    steps:
     - name: Compile winutil.ps1
       shell: pwsh
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; ./Compile.ps1
       continue-on-error: false # Directly fail the job on error, removing the need for a separate check
-  Check:
-    needs: Compile
-    runs-on: windows-latest
-    steps:
     - name: Check Syntax of winutil.ps1 
       shell: pwsh
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; Get-Command -Syntax .\winutil.ps1 # This doesn't catch all errors, but most of the comma, quote, and bracket errors.
       continue-on-error: false
+    - name: Generate Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: winutil.ps1
+        path: winutil.ps1
+    
+      
