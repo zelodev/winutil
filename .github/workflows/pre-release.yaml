@@ -8,20 +8,29 @@ on:
   workflow_dispatch: # Manual trigger added
 
 jobs:
-  Compile-and-Check:
-    uses: Marterich/winutil/.github/workflows/compile-check.yaml@main
+     
 
   Extract-Tag-Release:
     
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          
+      - name: Compile winutil.ps1
+        shell: pwsh
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force; ./Compile.ps1
+        continue-on-error: false # Directly fail the job on error, removing the need for a separate check
+        
       - name: Extract Version from winutil.ps1
         id: extract_version
         run: |
           $version = (Get-Date -Format "yy.MM.dd")
           echo "version=$version" >> $env:GITHUB_ENV
         shell: pwsh
-
+        
       - name: Create Tag
         id: create_tag
         run: |
