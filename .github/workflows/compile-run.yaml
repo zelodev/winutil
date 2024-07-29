@@ -17,8 +17,8 @@ jobs:
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; ./Compile.ps1
       continue-on-error: false # Directly fail the job on error, removing the need for a separate check
-    - name: Run Winutil 
+    - name: Winutil 
       shell: pwsh
       run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; Start-Process -FilePath pwsh -ArgumentList "winutil.ps1" -PassThru -NoNewWindow -Wait
+        Set-ExecutionPolicy Bypass -Scope Process -Force; Get-Command -Syntax .\winutil.ps1
       continue-on-error: false
