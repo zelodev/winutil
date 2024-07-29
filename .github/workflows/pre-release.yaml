@@ -8,12 +8,12 @@ on:
   workflow_dispatch: # Manual trigger added
 
 jobs:
+  Compile-and-Check:
+    uses: Marterich/winutil/.github/workflows/compile-check.yaml@main
+
   build-runspace:
     runs-on: windows-latest
     steps:
-      - name: Compile & Run winutil.ps1
-        uses: Marterich/winutil/.github/workflows/compile-check.yaml@main
-
       - name: Extract Version from winutil.ps1
         id: extract_version
         run: |
