@@ -9,20 +9,19 @@ on:
   workflow_call: # Allow other Actions to call this workflow 
 
 jobs:
-  compile-and-run:
+  build-runspace:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.head_ref }}
-    - name: Run Compile.ps1
+    - name: Compile project
       shell: pwsh
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; ./Compile.ps1
       continue-on-error: false # Directly fail the job on error, removing the need for a separate check
-    - name: Run winutil.ps1
+    - name: Run Winutil 
       shell: pwsh
       run: |
-        ls; Set-ExecutionPolicy Bypass -Scope Process -Force; ./winutil.ps1
+	      Set-ExectionPolicy Bypass -Scope Process -Force; ./winutil.ps1
       continue-on-error: false
-
