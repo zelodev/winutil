@@ -1,25 +1,28 @@
-name: Compile
+name: Compile & Run 
 
 on:
   push:
-    branches:
-      - main
-      - test*
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
   workflow_dispatch: # Manual trigger added
+  workflow_call: # Allow other Actions to call this workflow 
 
 jobs:
-  build-runspace:
+  compile-and-run:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.head_ref }}
-    - name: Compile project
+    - name: Run Compile.ps1
       shell: pwsh
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; ./Compile.ps1
       continue-on-error: false # Directly fail the job on error, removing the need for a separate check
-    - uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: Compile Winutil
-      if: success()
+    - name: Run winutil.ps1
+      shell: pwsh
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; ./winutil.ps1
+      continue-on-error: false
+

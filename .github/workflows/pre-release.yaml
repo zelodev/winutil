@@ -11,8 +11,8 @@ jobs:
   build-runspace:
     runs-on: windows-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - name: Compile & Run winutil.ps1
+        uses: ./.github/workflows/compile-run.yaml
 
       - name: Extract Version from winutil.ps1
         id: extract_version
