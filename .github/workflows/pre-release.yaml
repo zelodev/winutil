@@ -8,10 +8,7 @@ on:
   workflow_dispatch: # Manual trigger added
 
 jobs:
-     
-
-  Extract-Tag-Release:
-    
+  Extract-Tag-Release:    
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
