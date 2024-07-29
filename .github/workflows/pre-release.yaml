@@ -12,7 +12,7 @@ jobs:
     uses: Marterich/winutil/.github/workflows/compile-check.yaml@main
 
   Extract-Tag-Release:
-    needs: Compile-and-Check
+    
     runs-on: windows-latest
     steps:
       - name: Extract Version from winutil.ps1
