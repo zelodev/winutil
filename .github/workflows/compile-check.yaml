@@ -25,10 +25,3 @@ jobs:
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; Get-Command -Syntax .\winutil.ps1 # This doesn't catch all errors, but most of the comma, quote, and bracket errors.
       continue-on-error: false
-    - name: Generate Build Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: winutil.ps1
-        path: winutil.ps1
-    
-      
