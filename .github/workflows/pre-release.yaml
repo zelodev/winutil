@@ -11,7 +11,8 @@ jobs:
   Compile-and-Check:
     uses: Marterich/winutil/.github/workflows/compile-check.yaml@main
 
-  build-runspace:
+  Extract-Tag-Release:
+    needs: Compile-and-Check
     runs-on: windows-latest
     steps:
       - name: Extract Version from winutil.ps1
